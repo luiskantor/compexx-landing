@@ -1,0 +1,960 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Home of Experts – Karriere Funnel</title>
+  <meta name="description" content="Starte deine Karriere in der Finanzwelt – mit Struktur, Mentoring und Team-Fokus. 15 Minuten Kennenlernen – kostenlos & unverbindlich." />
+  <style>
+    :root{
+      --bg:#ffffff;
+      --surface:#f7f7f8;
+      --surface2:#fbfbfc;
+      --text:#0b1220;
+      --muted:#5b6474;
+      --border:rgba(15, 23, 42, .10);
+      --shadow:0 10px 30px rgba(2, 6, 23, .08);
+      --shadow2:0 6px 20px rgba(2, 6, 23, .10);
+      --accent:#1d4ed8; /* blue */
+      --accent2:#0ea5e9; /* sky */
+      --good:#16a34a;
+      --warn:#f59e0b;
+      --radius:18px;
+      --radius2:26px;
+      --max:1120px;
+    }
+
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+      color:var(--text);
+      background:
+        radial-gradient(900px 600px at 20% -10%, rgba(29,78,216,.14), transparent 60%),
+        radial-gradient(900px 600px at 95% 0%, rgba(14,165,233,.14), transparent 55%),
+        linear-gradient(180deg, var(--bg), var(--bg));
+    }
+
+    a{color:inherit; text-decoration:none}
+    .container{max-width:var(--max); margin:0 auto; padding:0 22px}
+    .pill{
+      display:inline-flex; align-items:center; gap:8px;
+      padding:8px 12px; border:1px solid var(--border);
+      border-radius:999px; background:rgba(255,255,255,.7);
+      backdrop-filter: blur(10px);
+      font-size:13px; color:var(--muted);
+    }
+    .dot{width:8px; height:8px; border-radius:999px; background:linear-gradient(135deg, var(--accent), var(--accent2))}
+    .btn{
+      display:inline-flex; align-items:center; justify-content:center; gap:10px;
+      padding:12px 16px;
+      border-radius:999px;
+      border:1px solid var(--border);
+      background:rgba(255,255,255,.8);
+      color:var(--text);
+      font-weight:650;
+      transition:transform .15s ease, box-shadow .15s ease, background .15s ease, border-color .15s ease;
+      cursor:pointer;
+      user-select:none;
+    }
+    .btn:hover{transform:translateY(-1px); box-shadow: var(--shadow)}
+    .btn:active{transform:translateY(0)}
+    .btn.primary{
+      border-color:rgba(29,78,216,.35);
+      background:linear-gradient(135deg, rgba(29,78,216,.95), rgba(14,165,233,.95));
+      color:white;
+      box-shadow: 0 14px 34px rgba(29,78,216,.22);
+    }
+    .btn.primary:hover{box-shadow:0 18px 44px rgba(29,78,216,.26)}
+    .btn.link{
+      border:none; background:transparent; padding:8px 10px; color:var(--muted);
+    }
+    .btn.link:hover{box-shadow:none; transform:none; color:var(--text); background:rgba(15,23,42,.04)}
+
+    /* Sticky header */
+    .header{
+      position:sticky; top:0; z-index:40;
+      background:rgba(255,255,255,.75);
+      backdrop-filter: blur(12px);
+      border-bottom:1px solid var(--border);
+    }
+    .header-inner{
+      height:72px;
+      display:flex; align-items:center; justify-content:space-between; gap:18px;
+    }
+    .brand{
+      display:flex; align-items:center; gap:12px; min-width:210px;
+    }
+    .logo{
+      width:34px; height:34px; border-radius:12px;
+      background:linear-gradient(135deg, rgba(29,78,216,.95), rgba(14,165,233,.95));
+      box-shadow: 0 12px 24px rgba(29,78,216,.18);
+    }
+    .brand strong{display:block; font-size:14px; letter-spacing:.2px}
+    .brand span{display:block; font-size:12px; color:var(--muted); margin-top:2px}
+    .header-cta{
+      display:flex; align-items:center; gap:12px;
+    }
+    .microtrust{display:none; font-size:12px; color:var(--muted)}
+    @media (min-width:860px){ .microtrust{display:block} }
+
+    /* Hero */
+    .hero{padding:52px 0 26px}
+    .hero-grid{
+      display:grid; gap:22px;
+      grid-template-columns: 1fr;
+      align-items:stretch;
+    }
+    @media (min-width:920px){
+      .hero-grid{grid-template-columns: 1.08fr .92fr; gap:26px}
+      .hero{padding:64px 0 36px}
+    }
+    h1{
+      font-size: clamp(34px, 4.1vw, 52px);
+      line-height:1.03;
+      margin:14px 0 12px;
+      letter-spacing:-.02em;
+    }
+    .subhead{
+      color:var(--muted);
+      font-size:16px;
+      line-height:1.6;
+      max-width:56ch;
+      margin:0 0 18px;
+    }
+    .bullets{
+      display:grid; gap:10px;
+      margin: 18px 0 22px;
+    }
+    .bullet{
+      display:flex; gap:10px; align-items:flex-start;
+      color:var(--text);
+      font-size:14px;
+    }
+    .check{
+      width:18px; height:18px; border-radius:999px;
+      background:rgba(22,163,74,.12);
+      border:1px solid rgba(22,163,74,.25);
+      display:flex; align-items:center; justify-content:center;
+      flex:0 0 auto; margin-top:1px;
+    }
+    .check svg{width:12px; height:12px; fill:var(--good)}
+    .hero-actions{display:flex; gap:12px; flex-wrap:wrap; align-items:center}
+    .hero-actions .hint{font-size:12px; color:var(--muted)}
+    .hero-card{
+      border:1px solid var(--border);
+      border-radius: var(--radius2);
+      background:linear-gradient(180deg, rgba(255,255,255,.85), rgba(255,255,255,.6));
+      box-shadow: var(--shadow);
+      overflow:hidden;
+      position:relative;
+    }
+    .hero-visual{
+      height:300px;
+      background:
+        radial-gradient(500px 260px at 25% 20%, rgba(29,78,216,.22), transparent 55%),
+        radial-gradient(520px 260px at 85% 10%, rgba(14,165,233,.22), transparent 55%),
+        linear-gradient(135deg, rgba(15,23,42,.02), rgba(15,23,42,.08));
+    }
+    @media (min-width:920px){ .hero-visual{height:420px} }
+    .overlay-card{
+      position:absolute; left:16px; right:16px; bottom:16px;
+      border:1px solid var(--border);
+      border-radius: 18px;
+      background:rgba(255,255,255,.92);
+      box-shadow: var(--shadow2);
+      padding:14px 14px 12px;
+    }
+    .overlay-title{
+      display:flex; align-items:center; justify-content:space-between;
+      font-weight:700; font-size:14px;
+      margin-bottom:10px;
+    }
+    .steps{
+      display:grid; gap:10px;
+    }
+    .step{
+      display:flex; gap:10px; align-items:flex-start;
+      font-size:13px; color:var(--muted);
+    }
+    .badge{
+      width:22px; height:22px; border-radius:10px;
+      border:1px solid var(--border);
+      background:linear-gradient(135deg, rgba(29,78,216,.08), rgba(14,165,233,.08));
+      display:flex; align-items:center; justify-content:center;
+      color:var(--text); font-weight:750;
+      flex:0 0 auto;
+    }
+
+    /* Proof strip */
+    .proof{
+      padding: 18px 0 4px;
+    }
+    .proofbar{
+      display:flex; gap:10px; flex-wrap:wrap; align-items:center; justify-content:space-between;
+      border:1px solid var(--border);
+      background:rgba(255,255,255,.75);
+      border-radius: 16px;
+      padding:12px 14px;
+    }
+    .proof-left{display:flex; gap:12px; align-items:center; flex-wrap:wrap}
+    .kpi{
+      display:flex; gap:10px; align-items:center;
+      padding:8px 10px;
+      border-radius:999px;
+      border:1px solid var(--border);
+      background:rgba(255,255,255,.8);
+      font-size:13px;
+      color:var(--muted);
+    }
+    .kpi strong{color:var(--text)}
+    .logos{display:flex; gap:10px; align-items:center; opacity:.8}
+    .logo-chip{
+      border:1px solid var(--border);
+      border-radius:999px;
+      padding:8px 10px;
+      font-size:12px;
+      color:var(--muted);
+      background:rgba(255,255,255,.8);
+      white-space:nowrap;
+    }
+
+    /* Sections */
+    section{padding:44px 0}
+    .section-head{
+      display:flex; align-items:flex-end; justify-content:space-between; gap:14px; flex-wrap:wrap;
+      margin-bottom:18px;
+    }
+    h2{
+      margin:0;
+      font-size: clamp(22px, 2.4vw, 30px);
+      letter-spacing:-.015em;
+    }
+    .lead{margin:0; color:var(--muted); max-width:70ch; line-height:1.6; font-size:14px}
+
+    .grid-3{
+      display:grid; gap:14px;
+      grid-template-columns: 1fr;
+    }
+    @media (min-width:860px){ .grid-3{grid-template-columns: repeat(3, 1fr)} }
+
+    .card{
+      border:1px solid var(--border);
+      border-radius: var(--radius);
+      background:rgba(255,255,255,.85);
+      box-shadow: 0 10px 24px rgba(2, 6, 23, .06);
+      padding:16px;
+    }
+    .card h3{margin:0 0 8px; font-size:15px}
+    .card p{margin:0; color:var(--muted); line-height:1.6; font-size:14px}
+    .icon{
+      width:38px; height:38px; border-radius:14px;
+      border:1px solid var(--border);
+      background:linear-gradient(135deg, rgba(29,78,216,.08), rgba(14,165,233,.08));
+      display:flex; align-items:center; justify-content:center;
+      margin-bottom:10px;
+    }
+    .icon svg{width:18px; height:18px; fill:rgba(15,23,42,.8)}
+
+    /* Roles */
+    .roles{
+      background: linear-gradient(180deg, rgba(247,247,248,.95), rgba(255,255,255,1));
+      border-top:1px solid rgba(15,23,42,.06);
+      border-bottom:1px solid rgba(15,23,42,.06);
+    }
+    .role-card{
+      padding:18px;
+      display:flex;
+      flex-direction:column;
+      gap:12px;
+      height:100%;
+    }
+    .role-top{display:flex; justify-content:space-between; align-items:flex-start; gap:12px}
+    .role-title{margin:0; font-size:16px; font-weight:760}
+    .role-meta{color:var(--muted); font-size:12px; margin-top:4px}
+    .role-tags{display:flex; gap:8px; flex-wrap:wrap}
+    .tag{
+      font-size:12px; color:var(--muted);
+      padding:6px 10px;
+      border:1px solid var(--border);
+      border-radius:999px;
+      background:rgba(255,255,255,.8);
+    }
+    .role-list{margin:0; padding-left:18px; color:var(--muted); line-height:1.6; font-size:13px}
+    .role-actions{display:flex; gap:10px; flex-wrap:wrap; margin-top:auto}
+    .small-link{font-size:13px; color:var(--muted); padding:12px 0; cursor:pointer}
+    .small-link:hover{color:var(--text); text-decoration:underline}
+
+    /* Timeline */
+    .timeline{
+      display:grid; gap:14px;
+      grid-template-columns: 1fr;
+    }
+    @media (min-width:860px){ .timeline{grid-template-columns: repeat(3, 1fr)} }
+    .tcard{position:relative; padding:18px}
+    .t-num{
+      position:absolute; top:14px; right:14px;
+      width:32px; height:32px; border-radius:14px;
+      display:flex; align-items:center; justify-content:center;
+      border:1px solid var(--border);
+      background:rgba(255,255,255,.85);
+      font-weight:800; color:rgba(15,23,42,.7)
+    }
+    .tcard h3{margin:0 0 8px; font-size:15px}
+    .tcard p{margin:0; color:var(--muted); line-height:1.6; font-size:14px}
+
+    /* FAQ */
+    .faq{
+      display:grid; gap:14px; grid-template-columns: 1fr;
+    }
+    @media (min-width:980px){ .faq{grid-template-columns: 1fr 1fr} }
+    details{
+      border:1px solid var(--border);
+      border-radius: 16px;
+      background:rgba(255,255,255,.85);
+      box-shadow: 0 10px 24px rgba(2, 6, 23, .05);
+      padding:12px 14px;
+    }
+    summary{
+      cursor:pointer;
+      list-style:none;
+      font-weight:720;
+      font-size:14px;
+      display:flex; align-items:center; justify-content:space-between; gap:12px;
+    }
+    summary::-webkit-details-marker{display:none}
+    .chev{
+      width:18px; height:18px; border-radius:8px;
+      border:1px solid var(--border);
+      display:flex; align-items:center; justify-content:center;
+      background:rgba(255,255,255,.8);
+      flex:0 0 auto;
+      transition:transform .18s ease;
+    }
+    details[open] .chev{transform:rotate(180deg)}
+    .faq p{margin:10px 0 0; color:var(--muted); line-height:1.7; font-size:14px}
+
+    /* Testimonials */
+    .quotes{
+      display:grid; gap:14px;
+      grid-template-columns: 1fr;
+    }
+    @media (min-width:860px){ .quotes{grid-template-columns: repeat(3, 1fr)} }
+    .quote{
+      padding:18px;
+      height:100%;
+      display:flex; flex-direction:column; gap:12px;
+    }
+    .qtext{margin:0; color:var(--text); line-height:1.7; font-size:14px}
+    .qmeta{
+      margin-top:auto;
+      display:flex; align-items:center; gap:10px; color:var(--muted); font-size:13px;
+    }
+    .avatar{
+      width:34px; height:34px; border-radius:14px;
+      border:1px solid var(--border);
+      background:linear-gradient(135deg, rgba(29,78,216,.12), rgba(14,165,233,.12));
+    }
+
+    /* Final CTA */
+    .final{
+      padding:54px 0 68px;
+    }
+    .cta-box{
+      border:1px solid rgba(29,78,216,.22);
+      background:
+        radial-gradient(900px 360px at 10% 0%, rgba(29,78,216,.18), transparent 60%),
+        radial-gradient(900px 360px at 90% 0%, rgba(14,165,233,.18), transparent 60%),
+        rgba(255,255,255,.85);
+      border-radius: 28px;
+      box-shadow: 0 18px 48px rgba(29,78,216,.14);
+      padding:22px;
+      display:grid; gap:18px;
+      grid-template-columns: 1fr;
+      align-items:center;
+    }
+    @media (min-width:980px){ .cta-box{grid-template-columns: 1.05fr .95fr; padding:26px} }
+    .cta-box h2{margin:0 0 10px}
+    .cta-box .lead{margin:0 0 16px}
+    .cta-feats{display:flex; gap:10px; flex-wrap:wrap; margin-top:6px}
+    .cta-right{
+      border:1px solid var(--border);
+      background:rgba(255,255,255,.88);
+      border-radius: 22px;
+      padding:16px;
+    }
+    .form-grid{display:grid; gap:10px; grid-template-columns: 1fr}
+    .row2{display:grid; gap:10px; grid-template-columns: 1fr}
+    @media (min-width:520px){ .row2{grid-template-columns: 1fr 1fr} }
+    label{font-size:12px; color:var(--muted); display:block; margin:0 0 6px}
+    input, select, textarea{
+      width:100%;
+      padding:12px 12px;
+      border-radius:14px;
+      border:1px solid var(--border);
+      background:rgba(255,255,255,.9);
+      outline:none;
+      font:inherit;
+      font-size:14px;
+    }
+    input:focus, select:focus, textarea:focus{border-color:rgba(29,78,216,.35); box-shadow:0 0 0 4px rgba(29,78,216,.12)}
+    textarea{min-height:92px; resize:vertical}
+    .form-actions{display:flex; gap:10px; flex-wrap:wrap; align-items:center; margin-top:10px}
+    .fineprint{font-size:12px; color:var(--muted); line-height:1.5}
+    .divider{height:1px; background:rgba(15,23,42,.08); margin:10px 0}
+
+    /* Modal */
+    .modal-backdrop{
+      position:fixed; inset:0; background:rgba(2,6,23,.55);
+      display:none; align-items:center; justify-content:center;
+      z-index:80; padding:18px;
+    }
+    .modal{
+      width:min(720px, 100%);
+      border-radius: 22px;
+      border:1px solid rgba(255,255,255,.18);
+      background:rgba(255,255,255,.92);
+      box-shadow: 0 30px 80px rgba(2,6,23,.35);
+      overflow:hidden;
+    }
+    .modal-head{
+      padding:14px 16px;
+      display:flex; align-items:center; justify-content:space-between; gap:12px;
+      border-bottom:1px solid rgba(15,23,42,.08);
+    }
+    .modal-head strong{font-size:14px}
+    .close{
+      width:38px; height:38px; border-radius:14px;
+      border:1px solid rgba(15,23,42,.12);
+      background:rgba(255,255,255,.9);
+      display:flex; align-items:center; justify-content:center;
+      cursor:pointer;
+      transition:transform .15s ease, box-shadow .15s ease;
+    }
+    .close:hover{transform:translateY(-1px); box-shadow: var(--shadow2)}
+    .modal-body{padding:16px}
+    .cal-placeholder{
+      border:1px dashed rgba(15,23,42,.22);
+      background:rgba(247,247,248,.9);
+      border-radius: 18px;
+      padding:16px;
+      color:var(--muted);
+      font-size:14px;
+      line-height:1.6;
+    }
+
+    footer{
+      padding:22px 0 34px;
+      color:var(--muted);
+      font-size:13px;
+      border-top:1px solid rgba(15,23,42,.06);
+      background:rgba(255,255,255,.6);
+    }
+    .foot{
+      display:flex; align-items:center; justify-content:space-between; gap:12px; flex-wrap:wrap;
+    }
+    .foot a{color:var(--muted)}
+    .foot a:hover{color:var(--text); text-decoration:underline}
+  </style>
+</head>
+
+<body>
+
+  <!-- Sticky Header -->
+  <header class="header">
+    <div class="container">
+      <div class="header-inner">
+        <div class="brand">
+          <div class="logo" aria-hidden="true"></div>
+          <div>
+            <strong>Home of Experts</strong>
+            <span>Karriere in der Finanzwelt</span>
+          </div>
+        </div>
+
+        <div class="header-cta">
+          <div class="microtrust">Dauer: 15 Min · kostenlos · unverbindlich</div>
+          <button class="btn primary" data-open-modal>
+            Kennenlerngespräch buchen
+            <span aria-hidden="true">→</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <main>
+    <div class="container">
+      <section class="hero">
+        <div class="hero-grid">
+          <div>
+            <div class="pill"><span class="dot"></span> Strukturierter Einstieg · Mentoring · Team-Fokus</div>
+            <h1>Starte deine Karriere in der Finanzwelt – mit Struktur, Mentoring und echtem Team-Fokus.</h1>
+            <p class="subhead">
+              Innovative Lösungen, klare Entwicklungspfade und ein Umfeld, in dem erst der Mensch kommt – dann das Geschäft.
+              In 15 Minuten prüfen wir gemeinsam, ob das passt.
+            </p>
+
+            <div class="bullets">
+              <div class="bullet">
+                <div class="check" aria-hidden="true">
+                  <svg viewBox="0 0 20 20"><path d="M7.7 13.6 3.9 9.8 2.5 11.2l5.2 5.2L17.6 6.5 16.2 5.1z"/></svg>
+                </div>
+                <div><strong>Fester Einarbeitungsplan</strong> statt „ins kalte Wasser“</div>
+              </div>
+              <div class="bullet">
+                <div class="check" aria-hidden="true">
+                  <svg viewBox="0 0 20 20"><path d="M7.7 13.6 3.9 9.8 2.5 11.2l5.2 5.2L17.6 6.5 16.2 5.1z"/></svg>
+                </div>
+                <div><strong>Mentoring & Expertennetzwerk</strong> mit klaren Routinen</div>
+              </div>
+              <div class="bullet">
+                <div class="check" aria-hidden="true">
+                  <svg viewBox="0 0 20 20"><path d="M7.7 13.6 3.9 9.8 2.5 11.2l5.2 5.2L17.6 6.5 16.2 5.1z"/></svg>
+                </div>
+                <div><strong>Entwicklungsperspektive</strong> (fachlich & vertrieblich) mit Feedback</div>
+              </div>
+            </div>
+
+            <div class="hero-actions">
+              <button class="btn primary" data-open-modal>Kennenlerngespräch buchen →</button>
+              <button class="btn link" data-scroll="#roles">Offene Stellen ansehen</button>
+              <div class="hint">Keine Verpflichtung. Klarer nächster Schritt.</div>
+            </div>
+          </div>
+
+          <div class="hero-card" aria-label="Visual">
+            <div class="hero-visual" role="img" aria-label="Team/Portrait Placeholder"></div>
+            <div class="overlay-card">
+              <div class="overlay-title">
+                <span>So läuft der Einstieg ab</span>
+                <span class="pill" style="padding:6px 10px; font-size:12px;">3 Schritte</span>
+              </div>
+              <div class="steps">
+                <div class="step"><div class="badge">1</div><div>15 Min Kennenlernen: Ziele, Fit, nächste Schritte</div></div>
+                <div class="step"><div class="badge">2</div><div>Kurz-Assessment/Gespräch (je nach Rolle)</div></div>
+                <div class="step"><div class="badge">3</div><div>Start mit Einarbeitungsplan + Mentoring</div></div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- Proof strip -->
+      <section class="proof" aria-label="Social Proof">
+        <div class="proofbar">
+          <div class="proof-left">
+            <div class="kpi"><strong>15 Min</strong> Kennenlernen</div>
+            <div class="kpi"><strong>Kostenlos</strong> & unverbindlich</div>
+            <div class="kpi"><strong>Antwort</strong> i.d.R. innerhalb 24–48h</div>
+          </div>
+          <div class="logos" aria-label="Badges">
+            <div class="logo-chip">Mentoring</div>
+            <div class="logo-chip">Struktur</div>
+            <div class="logo-chip">Team-Kultur</div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!-- Value props -->
+    <section>
+      <div class="container">
+        <div class="section-head">
+          <h2>Warum Home of Experts?</h2>
+          <p class="lead">Kurz, konkret und ohne Buzzwords: Was dich hier wirklich weiterbringt.</p>
+        </div>
+
+        <div class="grid-3">
+          <div class="card">
+            <div class="icon" aria-hidden="true">
+              <svg viewBox="0 0 20 20"><path d="M4 3h12a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1zm1 4v8h10V7H5zm0-2h10V5H5v0z"/></svg>
+            </div>
+            <h3>Struktur statt Zufall</h3>
+            <p>Onboarding, klare Routinen und ein Plan, der dich messbar voranbringt – ohne Chaos und ohne Rätselraten.</p>
+          </div>
+
+          <div class="card">
+            <div class="icon" aria-hidden="true">
+              <svg viewBox="0 0 20 20"><path d="M10 2a5 5 0 1 1 0 10A5 5 0 0 1 10 2zM3 18a7 7 0 0 1 14 0H3z"/></svg>
+            </div>
+            <h3>Menschliche Kultur</h3>
+            <p>Ein Umfeld, in dem Zusammenarbeit zählt. Feedback ist Routine – nicht Ausnahme. „Mensch vor Geschäft“ als Leitlinie.</p>
+          </div>
+
+          <div class="card">
+            <div class="icon" aria-hidden="true">
+              <svg viewBox="0 0 20 20"><path d="M10 2 2 6l8 4 8-4-8-4zm8 6-8 4-8-4v6l8 4 8-4V8z"/></svg>
+            </div>
+            <h3>Finanzwelt mit Wirkung</h3>
+            <p>Du arbeitest nicht „nur mit Zahlen“, sondern an Lösungen, die Menschen wirklich helfen – mit klarer Entwicklungsperspektive.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Roles -->
+    <section class="roles" id="roles">
+      <div class="container">
+        <div class="section-head">
+          <h2>Offene Stellen</h2>
+          <p class="lead">Wähle eine Rolle – oder sende einfach kurz Interesse. Details klären wir im Gespräch.</p>
+        </div>
+
+        <div class="grid-3">
+          <div class="card role-card">
+            <div class="role-top">
+              <div>
+                <div class="role-title">Junior Berater:in (m/w/d)</div>
+                <div class="role-meta">Hybrid · DACH · Einstieg möglich</div>
+              </div>
+              <div class="role-tags">
+                <div class="tag">Einarbeitung</div>
+                <div class="tag">Mentoring</div>
+              </div>
+            </div>
+            <ul class="role-list">
+              <li>Strukturierter Einstieg + klare Lernziele</li>
+              <li>Begleitete Gespräche & Routine-Feedback</li>
+              <li>Wachstum in Verantwortung & Expertise</li>
+            </ul>
+            <div class="role-actions">
+              <button class="btn primary" data-open-form>In 60 Sekunden Interesse senden</button>
+              <span class="small-link" data-open-modal>Erst Gespräch buchen</span>
+            </div>
+          </div>
+
+          <div class="card role-card">
+            <div class="role-top">
+              <div>
+                <div class="role-title">Kundenbetreuung / Service (m/w/d)</div>
+                <div class="role-meta">Vor Ort oder Hybrid · je nach Standort</div>
+              </div>
+              <div class="role-tags">
+                <div class="tag">Teamplay</div>
+                <div class="tag">Kommunikation</div>
+              </div>
+            </div>
+            <ul class="role-list">
+              <li>Klare Prozesse statt Ticket-Chaos</li>
+              <li>Qualität in Kundenkommunikation</li>
+              <li>Entwicklung in Spezialisierung möglich</li>
+            </ul>
+            <div class="role-actions">
+              <button class="btn primary" data-open-form>In 60 Sekunden Interesse senden</button>
+              <span class="small-link" data-scroll="#final">Zum Formular</span>
+            </div>
+          </div>
+
+          <div class="card role-card">
+            <div class="role-top">
+              <div>
+                <div class="role-title">Quereinstieg (m/w/d)</div>
+                <div class="role-meta">Wenn du lernbereit bist und Struktur willst</div>
+              </div>
+              <div class="role-tags">
+                <div class="tag">Quereinstieg</div>
+                <div class="tag">Coaching</div>
+              </div>
+            </div>
+            <ul class="role-list">
+              <li>Aufbau über Routinen + Mentoring</li>
+              <li>Klare Anforderungen & Erwartungsmanagement</li>
+              <li>Fokus auf langfristige Entwicklung</li>
+            </ul>
+            <div class="role-actions">
+              <button class="btn primary" data-open-form>In 60 Sekunden Interesse senden</button>
+              <span class="small-link" data-open-modal>Erst Gespräch buchen</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Timeline -->
+    <section>
+      <div class="container">
+        <div class="section-head">
+          <h2>So läuft der Einstieg ab</h2>
+          <p class="lead">Transparenz reduziert Unsicherheit. Deshalb: klare Schritte, klare Erwartungen.</p>
+        </div>
+
+        <div class="timeline">
+          <div class="card tcard">
+            <div class="t-num">1</div>
+            <h3>15 Min Kennenlernen</h3>
+            <p>Wir klären Ziele, Rahmenbedingungen und ob das grundsätzlich passt. Danach kennst du den nächsten Schritt.</p>
+          </div>
+          <div class="card tcard">
+            <div class="t-num">2</div>
+            <h3>Kurz-Assessment / Gespräch</h3>
+            <p>Je nach Rolle: kurzes Gespräch oder kleines Praxis-Szenario. Fokus: Potenzial, nicht Perfektion.</p>
+          </div>
+          <div class="card tcard">
+            <div class="t-num">3</div>
+            <h3>Start mit Plan</h3>
+            <p>Onboarding mit Routinen, Mentoring und messbaren Lernzielen. Feedback ist Teil des Systems.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="roles" style="background:var(--surface2)">
+      <div class="container">
+        <div class="section-head">
+          <h2>Häufige Fragen</h2>
+          <p class="lead">Kurz beantwortet. Wenn etwas fehlt: im Kennenlerngespräch klären.</p>
+        </div>
+
+        <div class="faq">
+          <details>
+            <summary>
+              Brauche ich Vorerfahrung?
+              <span class="chev" aria-hidden="true">⌄</span>
+            </summary>
+            <p>Nicht zwingend. Entscheidend sind Lernbereitschaft, Zuverlässigkeit und der Wille, strukturiert zu arbeiten.</p>
+          </details>
+
+          <details>
+            <summary>
+              Wie sieht die Einarbeitung konkret aus?
+              <span class="chev" aria-hidden="true">⌄</span>
+            </summary>
+            <p>Ein klarer Plan mit Lernzielen, Routinen und regelmäßigem Feedback. Du weißt jederzeit, was „gut“ aussieht.</p>
+          </details>
+
+          <details>
+            <summary>
+              Wie schnell bekomme ich Rückmeldung?
+              <span class="chev" aria-hidden="true">⌄</span>
+            </summary>
+            <p>Typisch innerhalb 24–48 Stunden (werktags). In Stoßzeiten kann es etwas länger dauern.</p>
+          </details>
+
+          <details>
+            <summary>
+              Was passiert im Kennenlerngespräch?
+              <span class="chev" aria-hidden="true">⌄</span>
+            </summary>
+            <p>Wir klären kurz deinen Status, Ziele, Rahmenbedingungen und ob ein nächster Schritt sinnvoll ist. Ohne Verkaufsdruck.</p>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section>
+      <div class="container">
+        <div class="section-head">
+          <h2>Was Kolleg:innen sagen</h2>
+          <p class="lead">Beispiele (Platzhalter). Ersetze sie durch echte Stimmen, sobald verfügbar.</p>
+        </div>
+
+        <div class="quotes">
+          <div class="card quote">
+            <p class="qtext">„Zum ersten Mal hatte ich einen klaren Plan für die ersten Wochen. Das hat mir extrem Sicherheit gegeben.“</p>
+            <div class="qmeta">
+              <div class="avatar" aria-hidden="true"></div>
+              <div><strong style="color:var(--text)">Nina K.</strong> · Junior Beraterin</div>
+            </div>
+          </div>
+
+          <div class="card quote">
+            <p class="qtext">„Feedback ist hier nicht nur ‚wenn was schief läuft‘, sondern fester Bestandteil. Das beschleunigt Entwicklung.“</p>
+            <div class="qmeta">
+              <div class="avatar" aria-hidden="true"></div>
+              <div><strong style="color:var(--text)">Marcel T.</strong> · Kundenbetreuung</div>
+            </div>
+          </div>
+
+          <div class="card quote">
+            <p class="qtext">„Die Kultur ist wirklich teamorientiert. Man merkt, dass Menschen und langfristige Perspektive zählen.“</p>
+            <div class="qmeta">
+              <div class="avatar" aria-hidden="true"></div>
+              <div><strong style="color:var(--text)">Sophie L.</strong> · Quereinstieg</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Final CTA + form -->
+    <section class="final" id="final">
+      <div class="container">
+        <div class="cta-box">
+          <div>
+            <h2>Wenn du prüfen willst, ob das passt: 15 Minuten reichen.</h2>
+            <p class="lead">
+              Kostenlos · unverbindlich · klarer nächster Schritt. Alternativ: sende in 60 Sekunden Interesse –
+              wir melden uns mit passenden Optionen.
+            </p>
+            <div class="cta-feats">
+              <div class="kpi"><strong>Kein</strong> Verkaufsdruck</div>
+              <div class="kpi"><strong>Klarer</strong> Prozess</div>
+              <div class="kpi"><strong>Mentoring</strong> im Fokus</div>
+            </div>
+            <div style="margin-top:14px; display:flex; gap:12px; flex-wrap:wrap">
+              <button class="btn primary" data-open-modal>Kennenlerngespräch buchen →</button>
+              <button class="btn" data-open-form>Interesse senden</button>
+            </div>
+          </div>
+
+          <div class="cta-right" aria-label="Short application form">
+            <strong style="display:block; font-size:14px; margin-bottom:10px">In 60 Sekunden Interesse senden</strong>
+            <form id="leadForm">
+              <div class="form-grid">
+                <div class="row2">
+                  <div>
+                    <label for="first">Vorname</label>
+                    <input id="first" name="first" autocomplete="given-name" required />
+                  </div>
+                  <div>
+                    <label for="last">Nachname</label>
+                    <input id="last" name="last" autocomplete="family-name" required />
+                  </div>
+                </div>
+                <div class="row2">
+                  <div>
+                    <label for="email">E-Mail</label>
+                    <input id="email" name="email" type="email" autocomplete="email" required />
+                  </div>
+                  <div>
+                    <label for="phone">Telefon</label>
+                    <input id="phone" name="phone" type="tel" autocomplete="tel" required />
+                  </div>
+                </div>
+
+                <div class="row2">
+                  <div>
+                    <label for="city">Stadt</label>
+                    <input id="city" name="city" autocomplete="address-level2" />
+                  </div>
+                  <div>
+                    <label for="status">Aktuelle Situation</label>
+                    <select id="status" name="status" required>
+                      <option value="" selected disabled>Bitte wählen</option>
+                      <option>Berufseinsteiger:in</option>
+                      <option>Quereinstieg</option>
+                      <option>Berufserfahrung</option>
+                      <option>Student:in</option>
+                    </select>
+                  </div>
+                </div>
+
+                <div>
+                  <label for="msg">Kurzinfo (optional)</label>
+                  <textarea id="msg" name="msg" placeholder="Z. B. welche Rolle interessiert dich, ab wann verfügbar, was du suchst …"></textarea>
+                </div>
+
+                <div class="form-actions">
+                  <button class="btn primary" type="submit">Interesse absenden</button>
+                  <button class="btn" type="button" data-open-modal>Oder: Gespräch buchen</button>
+                </div>
+
+                <div class="divider"></div>
+                <div class="fineprint">
+                  Mit dem Absenden stimmst du zu, dass wir dich zur Kontaktaufnahme erreichen dürfen.
+                  (DSGVO-Text/Datenschutzlink hier ergänzen.)
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer>
+    <div class="container">
+      <div class="foot">
+        <div>© <span id="year"></span> Home of Experts · Funnel Preview</div>
+        <div style="display:flex; gap:14px; flex-wrap:wrap">
+          <a href="#" onclick="return false;">Impressum</a>
+          <a href="#" onclick="return false;">Datenschutz</a>
+          <a href="#" onclick="return false;">Kontakt</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Modal: Calendly placeholder -->
+  <div class="modal-backdrop" id="modal" aria-hidden="true" role="dialog" aria-label="Kennenlerngespräch buchen">
+    <div class="modal">
+      <div class="modal-head">
+        <strong>Kennenlerngespräch buchen</strong>
+        <div class="close" data-close-modal aria-label="Schließen">✕</div>
+      </div>
+      <div class="modal-body">
+        <div class="cal-placeholder">
+          <strong>Calendly/Termin-Widget einbetten</strong><br/>
+          Ersetze diesen Block durch dein Embed (z. B. Calendly inline Widget oder ein iFrame).
+          <div style="margin-top:12px; display:flex; gap:10px; flex-wrap:wrap">
+            <button class="btn primary" type="button" data-scroll="#final" data-close-modal>Lieber schnell Interesse senden →</button>
+            <button class="btn" type="button" data-close-modal>Schließen</button>
+          </div>
+          <div class="fineprint" style="margin-top:12px">
+            Tipp: Im echten Funnel funktioniert „Inline Embed“ im letzten CTA-Bereich oft besser als nur ein Modal.
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Simple helpers
+    const $ = (sel, root=document) => root.querySelector(sel);
+    const $$ = (sel, root=document) => Array.from(root.querySelectorAll(sel));
+
+    // Year
+    $("#year").textContent = new Date().getFullYear();
+
+    // Smooth scroll
+    $$("[data-scroll]").forEach(el => {
+      el.addEventListener("click", () => {
+        const target = el.getAttribute("data-scroll");
+        if (!target) return;
+        const node = document.querySelector(target);
+        if (node) node.scrollIntoView({ behavior: "smooth", block: "start" });
+      });
+    });
+
+    // Modal open/close
+    const modal = $("#modal");
+    const openModal = () => {
+      modal.style.display = "flex";
+      modal.setAttribute("aria-hidden", "false");
+      document.body.style.overflow = "hidden";
+    };
+    const closeModal = () => {
+      modal.style.display = "none";
+      modal.setAttribute("aria-hidden", "true");
+      document.body.style.overflow = "";
+    };
+
+    $$("[data-open-modal]").forEach(btn => btn.addEventListener("click", openModal));
+    $$("[data-close-modal]").forEach(btn => btn.addEventListener("click", closeModal));
+    modal.addEventListener("click", (e) => { if (e.target === modal) closeModal(); });
+    window.addEventListener("keydown", (e) => { if (e.key === "Escape" && modal.style.display === "flex") closeModal(); });
+
+    // Open form (scroll to final CTA)
+    $$("[data-open-form]").forEach(btn => btn.addEventListener("click", () => {
+      const node = $("#final");
+      if (node) node.scrollIntoView({ behavior: "smooth", block: "start" });
+    }));
+
+    // Fake submit (preview)
+    $("#leadForm").addEventListener("submit", (e) => {
+      e.preventDefault();
+      const first = $("#first").value.trim();
+      const email = $("#email").value.trim();
+      alert(`Preview: Danke ${first || ""}! (Formular wäre jetzt an Backend/CRM gesendet.)\n\nE-Mail: ${email || "-"}`);
+      e.target.reset();
+    });
+  </script>
+</body>
+</html>
